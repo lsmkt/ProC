@@ -15,7 +15,7 @@ public class main {
 		rawMaterials[0]=15;
 		rawMaterials[1]=15;
 				
-		//for loop runs so we have 99 weeks 
+		//for loop runs so we have 100 weeks 
 		for(int x=2; x<102; x++) {
 			
 			inventoryLastWeek=inventory2; //inventory last week is assigned its value

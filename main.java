@@ -37,7 +37,7 @@ public class main {
 				unfilledOrders=0;
 			}
 			
-			if(inventory2<0) { //
+			if(inventory2<0) { 
 				inventory2=0;
 			}
 			

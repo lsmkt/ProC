@@ -5,9 +5,12 @@ public class main {
 	
 	
 	public static int[] rawMaterials = new int [110];
-	
+	public static int [] customer = new int [102];
+	public static int [] in = new int [102];
+	public static int [] unfill = new int [102];
+	public static int [] raworder = new int [102];
+
 	public static void main(String[] args) throws IOException {
-		
 		
 		int orders, inventoryLastWeek,inventory2=0, incomingBeer=15, unfilledOrders=0;
 		
@@ -41,7 +44,6 @@ public class main {
 				inventory2=0;
 			}
 			
-			
 			//call function to find how many raw materials we order this week
 			inFunction(inventory2, unfilledOrders, x); 
 			
@@ -51,8 +53,63 @@ public class main {
 			System.out.println("Unfilled orders:   "+unfilledOrders);
 			System.out.println("Material order:    "+rawMaterials[x]);
 			
+			customer[x]=orders;
+			in[x]=inventory2;
+			unfill[x]=unfilledOrders;
+			
+			
+			
 		}
 		
+		System.out.println("\n orders");
+		
+		for(int x=2; x<102; x++) {
+			
+			
+			System.out.println(customer[x]);
+			
+			
+			
+		}
+		
+		
+		
+		System.out.println("\n in");
+		
+		for(int x=2; x<102; x++) {
+			
+			
+			System.out.println(in[x]);
+			
+			
+			
+		}
+		
+		
+		
+		System.out.println("\n unfill");
+		
+		for(int x=2; x<102; x++) {
+			
+			
+			System.out.println(unfill[x]);
+			
+			
+			
+		}
+		
+		System.out.println("\n raw");
+		
+		for(int x=2; x<102; x++) {
+			
+			
+			System.out.println(rawMaterials[x]);
+			
+			
+			
+		}
+		
+
 	}
 	
 	public static int random () {
@@ -90,7 +147,7 @@ public class main {
 		//	or unfilled orders 
 		
 		
-		// inventory is between 10-30, too high so we decrease our order by 6 
+		// case 4: inventory is between 10-30, too high so we decrease our order by 6 
 		if(inventory > 10 && inventory< 30 && unfilled == 0) { 
 			
 			rawMaterials[week]=rawMaterials[week-1]-6;
@@ -105,7 +162,7 @@ public class main {
 			
 		}
 		
-		// if the inventory is less or equal to 10, the ideal inventory range 
+		// case 1: if the inventory is less or equal to 10, the ideal inventory range 
 		// and there are no unfilled orders we order 15, the mean customers per week
 		else if (inventory <= 10 && unfilled == 0) {
 			
@@ -113,19 +170,19 @@ public class main {
 			
 		}
 		
-		// if there are 1-4 unfilled orders, we order more materials 
+		// case 2: if there are 1-4 unfilled orders, we order more materials 
 		// increase in order is a approx. a quarter of unfilled order plus 1
 		else if(unfilled > 0 && unfilled < 5)  { //back ordered. order more
 			
-			rawMaterials[week]=(int) (rawMaterials[week-1]+unfilled*0.25+1);
+			rawMaterials[week]=(int) (rawMaterials[week-1]+Math.ceil(unfilled*0.25));
 			
 		}
 		
-		// if there are 5 or greater unfilled orders, we order a larger 
+		// case 3: if there are 5 or greater unfilled orders, we order a larger 
 		// amount of raw materials, the increase is approx. half of the unfilled orders
 		else if(unfilled > 4) { //very back ordered. order a lot more
 			
-			rawMaterials[week]=(int) (rawMaterials[week-1]+unfilled*0.5);
+			rawMaterials[week]=(int) (rawMaterials[week-1]+Math.ceil(unfilled)*0.5);
 	
 		}
 		
